@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <context:property-placeholder location = "classpath:sport.properties"/>
+
+    <!-- Define your beans here -->
+    
+    
+     <bean id="myLoggerConfig" class="com.infosys.assignmentDependencyInjection.MyLoggerConfig" init-method="initLogger">
+    	<property name="rootLoggerLevel" value="FINE" />
+    	<property name="printedLoggerLevel" value="FINE"/>
+    </bean>
+    
+    <bean id = "fortune" class = "com.infosys.assignmentDependencyInjection.RandomFortune"></bean>
+    
+    <bean id = "HockeyCoach" class = "com.infosys.assignmentDependencyInjection.CoachHockey">
+    	<constructor-arg ref = "fortune"/>
+    </bean>
+    
+    <!--  Creates an object of class -> HappyFortuneService having name as myFortuneService 
+    		
+    		HappyFortuneService myFortuneService = new HappyFortuneService();
+    -->
+    <bean id = "myFortuneService" class = "com.infosys.springSetterInjection.HappyFortuneService"></bean> 
+    
+    <!--  Creates an object of class -> BaseballCoach having name as myCoach with constructor passing object 
+    		myFortuneService having data-type HappyFortuneService 
+    		
+    		BaseballCoach myCoach = new BaseballCoach(myFortuneService);
+    		-->
+    <bean id = "myCoach" class = "com.infosys.springSetterInjection.BaseballCoach"> 
+    	  <constructor-arg ref = "myFortuneService"/>  
+    	
+    </bean>
+    
+   <!--   <bean id = "myCoach2" class = "com.infosys.springDependencyInjection.TrackCoach"></bean> -->
+   
+   <bean id = "myCricketCoach" class = "com.infosys.springSetterInjection.CricketCoach">
+   	<property name = "fortuneService" ref = "myFortuneService"/>
+   	<property name = "emailAddress" value = "${foo.email}"/>
+   	<property name = "team" value = "${foo.team}"/>
+   </bean>
+    
+</beans>
+
+
+
+
+

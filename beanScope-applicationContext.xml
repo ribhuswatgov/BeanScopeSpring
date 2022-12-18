@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    
+
+    <!-- Define your beans here -->
+    
+    
+     <bean id="myLoggerConfig" class="com.infosys.BeanScope.MyLoggerConfig" init-method="initLogger">
+    	<property name="rootLoggerLevel" value="FINE" />
+    	<property name="printedLoggerLevel" value="FINE"/>
+    </bean>
+    
+    
+    <!--  Creates an object of class -> HappyFortuneService having name as myFortuneService 
+    		
+    		HappyFortuneService myFortuneService = new HappyFortuneService();
+    -->
+    <bean id = "myFortuneService" class = "com.infosys.BeanScope.HappyFortuneService"></bean> 
+    
+    <!--  Creates an object of class -> BaseballCoach having name as myCoach with constructor passing object 
+    		myFortuneService having data-type HappyFortuneService 
+    		
+    		BaseballCoach myCoach = new BaseballCoach(myFortuneService);
+    		-->
+    <bean id = "myCoach" class = "com.infosys.BeanScope.TrackCoach"
+    	init-method = "doMyStartupStuff"
+    	destroy-method = "doMyCleanupStuff"> 
+    </bean>
+    
+   <!--   <bean id = "myCoach2" class = "com.infosys.springDependencyInjection.TrackCoach"></bean> -->
+   
+  
+    
+</beans>
+
+
+
+
+
